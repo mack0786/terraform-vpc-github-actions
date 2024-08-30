@@ -10,28 +10,38 @@ env:
     AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
     AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
+# jobs:
+#     build-infra:
+#         name: terraform-CICD
+#         runs-on: ubuntu-latest
+#         steps:
+            # - name: checkout
+            #   uses: actions/checkout@v2
+            # - name: set up terraform
+            #   uses: hashicorp/setup-terraform@v2
+            # - name: Terraform Init
+            #   id: init
+            #   run: terraform init
+            #   working-directory: ./terraform-vpc
+            # - name: Terraform Validate
+            #   id: validate
+            #   run: terraform validate
+            #   working-directory: ./terraform-vpc
+            # - name: Terraform Plan
+            #   id: plan
+            #   run: terraform plan
+            #   working-directory: ./terraform-vpc
+            # - name: Terraform Apply
+            #   id: apply
+            #   run: terraform apply --auto-approve
+            #   working-directory: ./terraform-vpc
+            
 jobs:
-    build-infra:
+    destroy:
         name: terraform-CICD
         runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v2
-            - name: set up terraform
-              uses: hashicorp/setup-terraform@v2
-            - name: Terraform Init
-              id: init
-              run: terraform init
-              working-directory: ./terraform-vpc
-            - name: Terraform Validate
-              id: validate
-              run: terraform validate
-              working-directory: ./terraform-vpc
-            - name: Terraform Plan
-              id: plan
-              run: terraform plan
-              working-directory: ./terraform-vpc
-            - name: Terraform Apply
-              id: apply
-              run: terraform apply --auto-approve
+        steps:            
+            - name: Terraform Destroy
+              id: destroy
+              run: terraform destroy --auto-approve
               working-directory: ./terraform-vpc
